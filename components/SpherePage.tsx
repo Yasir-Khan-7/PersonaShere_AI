@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { ROLE_LABELS, Role, useAuth } from "@/lib/mockAuth";
+import { ROLE_LABELS, Role } from "@/lib/mockAuth";
 import { sphereData } from "@/lib/mockData";
 import { Shell } from "./layout/Shell";
 import MetricGrid from "./ui/MetricGrid";
@@ -16,15 +14,7 @@ type Props = {
 };
 
 export default function SpherePage({ role }: Props) {
-  const { state } = useAuth();
-  const router = useRouter();
   const data = sphereData[role];
-
-  useEffect(() => {
-    if (!state.role) {
-      router.replace("/roles");
-    }
-  }, [state.role, router]);
 
   if (!data) return null;
 

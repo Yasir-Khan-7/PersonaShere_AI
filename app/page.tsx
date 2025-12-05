@@ -29,16 +29,16 @@ export default function Home() {
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              href="/login"
+              href="/sign-in"
               className="rounded-xl bg-gradient-to-r from-cyan-500 to-fuchsia-500 px-5 py-3 text-sm font-semibold shadow-glow"
             >
-              Start mock login
+              Sign in
             </Link>
             <Link
               href="/roles"
               className="rounded-xl border border-[color:var(--color-border)]/80 px-5 py-3 text-sm text-[color:var(--color-muted)] hover:border-cyan-400/60"
             >
-              Jump to role selection
+              Go to roles
             </Link>
           </div>
         </div>

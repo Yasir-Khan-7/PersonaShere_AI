@@ -1,9 +1,5 @@
-"use client";
-
-import { ReactNode } from "react";
-import { MockAuthProvider } from "@/lib/mockAuth";
-
-export default function Providers({ children }: { children: ReactNode }) {
-  return <MockAuthProvider>{children}</MockAuthProvider>;
+// Reserved for future client-side providers (e.g., theme, query). Currently unused.
+export default function Providers({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }
 

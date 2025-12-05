@@ -1,9 +1,10 @@
 "use client";
 
+import { SignOutButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
-import { ROLE_LABELS, Role, useAuth } from "@/lib/mockAuth";
+import { ROLE_LABELS, Role } from "@/lib/mockAuth";
 
 type ShellProps = {
   title: string;
@@ -20,7 +21,7 @@ const sphereLinks: { label: string; href: string; role: Role }[] = [
 
 export function Shell({ title, subtitle, children }: ShellProps) {
   const pathname = usePathname();
-  const { state, logout } = useAuth();
+  const { user } = useUser();
   const activeRole = pathname.split("/").pop() as Role | undefined;
 
   return (
@@ -39,23 +40,17 @@ export function Shell({ title, subtitle, children }: ShellProps) {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            {state.role ? (
-              <span className="rounded-full bg-white/5 px-3 py-1 text-sm text-[color:var(--color-muted)]">
-                {ROLE_LABELS[state.role]}
-              </span>
-            ) : null}
             <div className="hidden sm:flex flex-col text-right">
-              <span className="text-sm font-medium">{state.user?.name ?? "Guest"}</span>
+              <span className="text-sm font-medium">{user?.fullName ?? "Guest"}</span>
               <span className="text-xs text-[color:var(--color-muted)]">
-                {state.org?.name ?? "No organization"}
+                {user?.primaryEmailAddress?.emailAddress ?? user?.username ?? ""}
               </span>
             </div>
-            <button
-              onClick={logout}
-              className="rounded-lg border border-[color:var(--color-border)] px-3 py-1 text-sm hover:border-cyan-400/70 transition-colors"
-            >
-              Logout
-            </button>
+            <SignOutButton>
+              <button className="rounded-lg border border-[color:var(--color-border)] px-3 py-1 text-sm hover:border-cyan-400/70 transition-colors">
+                Logout
+              </button>
+            </SignOutButton>
           </div>
         </div>
         <nav className="mx-auto flex max-w-6xl items-center gap-2 px-6 pb-4">
