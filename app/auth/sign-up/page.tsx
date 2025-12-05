@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSignUp } from "@clerk/nextjs";
+import { ClerkCaptcha, useSignUp } from "@clerk/nextjs";
 import { ROLE_LABELS, Role } from "@/lib/mockAuth";
 
 const roles: Role[] = ["finance", "hr", "operations", "admin"];
@@ -94,6 +94,9 @@ export default function CustomSignUp() {
                 ))}
               </select>
             </label>
+            <div className="rounded-xl border border-[color:var(--color-border)]/70 bg-black/30 px-3 py-2">
+              <ClerkCaptcha />
+            </div>
             {error ? <p className="text-sm text-rose-300">{error}</p> : null}
             <button
               type="submit"
