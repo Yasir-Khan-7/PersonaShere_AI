@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSignIn, useUser } from "@clerk/nextjs";
 import { Role } from "@/lib/mockAuth";
@@ -14,10 +14,12 @@ export default function CustomSignIn() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  if (isSignedIn && user) {
-    const role = (user.publicMetadata?.role as Role | undefined) ?? "finance";
-    router.replace(`/spheres/${role}`);
-  }
+  useEffect(() => {
+    if (isSignedIn && user) {
+      const role = (user.publicMetadata?.role as Role | undefined) ?? "finance";
+      router.replace(`/spheres/${role}`);
+    }
+  }, [isSignedIn, user, router]);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
